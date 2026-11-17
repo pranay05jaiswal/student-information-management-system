@@ -7,6 +7,6 @@
     }
   ],
   "env": {
-    "VITE_API_URL": "https://backend-five-vert-74.vercel.app"
+    "VITE_API_URL": "https://campus-desk-api-3tj1.onrender.com"
   }
 }
