@@ -63,9 +63,12 @@ app.use((error, _request, response, _next) => {
 });
 
 async function start() {
-  await connectDatabase();
-  await seedDefaultDepartments();
   app.listen(port, () => console.log(`Student API listening on port ${port}`));
+  connectDatabase()
+    .then(() => seedDefaultDepartments())
+    .catch((error) => {
+      console.error('MongoDB Atlas connection warning:', error.message);
+    });
 }
 
 let dbPromise = null;
