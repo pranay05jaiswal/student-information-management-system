@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ],
+  "env": {
+    "MONGODB_URI": "mongodb+srv://ordhatrak855_db_user:pucTDw3KCIh8bLyh@cluster0.0enfp44.mongodb.net/?appName=Cluster0",
+    "FRONTEND_URL": "*"
+  }
+}
