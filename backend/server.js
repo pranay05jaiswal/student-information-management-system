@@ -8,9 +8,14 @@ import { seedDefaultDepartments } from './controllers/departmentController.js';
 import studentRoutes from './routes/studentRoutes.js';
 import departmentRoutes from './routes/departmentRoutes.js';
 import dns from 'node:dns';
-dns.setServers(['1.1.1.1', '8.8.8.8']);
+try {
+  if (process.platform === 'win32') {
+    dns.setServers(['8.8.8.8', '1.1.1.1']);
+  }
+} catch {}
 
 const app = express();
+app.set('trust proxy', 1);
 const port = Number(process.env.PORT) || 5000;
 const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
   .split(',')
@@ -59,7 +64,7 @@ app.use((error, _request, response, _next) => {
     return response.status(413).json({ success: false, message: 'Request body is too large.' });
   }
   console.error('Unhandled API error:', error);
-  return response.status(500).json({ success: false, message: 'An unexpected server error occurred.' });
+  return response.status(500).json({ success: false, message: error.message || 'An unexpected server error occurred.' });
 });
 
 async function start() {
